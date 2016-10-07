@@ -14,12 +14,14 @@ import com.badlogic.gdx.math.Vector2;
 public class GameScreen extends ScreenAdapter {
     private PacmanGame pacmanGame;
     private Texture pacmanImg;
+    private WorldRenderer worldRenderer;
     World world;
 
 
     public GameScreen(PacmanGame pacmanGame) {
         this.pacmanGame = pacmanGame;
         world =new World(pacmanGame);
+        worldRenderer = new WorldRenderer(pacmanGame,world);
         pacmanImg = new Texture("pacman.png");
     }
 
@@ -45,14 +47,9 @@ public class GameScreen extends ScreenAdapter {
 
     public  void render (float delta)
     {
+        update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        update();
-        SpriteBatch batch = pacmanGame.batch;
-        batch.begin();
-        Vector2 pos = world.getPacman().getPosition();
-        batch.draw(pacmanImg, pos.x, pos.y);
-        batch.end();
-
+        worldRenderer.render(delta);
     }
 }
