@@ -14,30 +14,29 @@ import com.badlogic.gdx.math.Vector2;
 public class GameScreen extends ScreenAdapter {
     private PacmanGame pacmanGame;
     private Texture pacmanImg;
-    private Pacman pacman;
+    World world;
 
 
     public GameScreen(PacmanGame pacmanGame) {
         this.pacmanGame = pacmanGame;
-
+        world =new World(pacmanGame);
         pacmanImg = new Texture("pacman.png");
-        pacman = new Pacman(100, 100);
     }
 
 
 
     private void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            pacman.move(Pacman.DIRECTION_UP);
+            world.getPacman().move(Pacman.DIRECTION_UP);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            pacman.move(Pacman.DIRECTION_DOWN);
+            world.getPacman().move(Pacman.DIRECTION_DOWN);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            pacman.move(Pacman.DIRECTION_LEFT);
+            world.getPacman().move(Pacman.DIRECTION_LEFT);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            pacman.move(Pacman.DIRECTION_RIGHT);
+            world.getPacman().move(Pacman.DIRECTION_RIGHT);
         }
     }
 
@@ -51,7 +50,7 @@ public class GameScreen extends ScreenAdapter {
         update();
         SpriteBatch batch = pacmanGame.batch;
         batch.begin();
-        Vector2 pos = pacman.getPosition();
+        Vector2 pos = world.getPacman().getPosition();
         batch.draw(pacmanImg, pos.x, pos.y);
         batch.end();
 
