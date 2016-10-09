@@ -11,7 +11,7 @@ public class World {
     World(PacmanGame pacmanGame) {
         this.pacmanGame = pacmanGame;
         maze = new Maze();
-        pacman = new Pacman(100,100);
+        pacman = new Pacman(60,60,maze);
     }
 
     Pacman getPacman() {
@@ -21,6 +21,10 @@ public class World {
     Maze getMaze()
     {
         return maze;
+    }
+
+    public void update(float delta) {
+        pacman.update();
     }
 
 
